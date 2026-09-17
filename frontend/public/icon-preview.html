@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GymFit - App Icon Concepts (Bicep Flex)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #090a0d;
+    color: #f2f2f7;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+  .header {
+    text-align: center;
+    max-width: 680px;
+    margin-bottom: 36px;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #ffffff 40%, #ff453a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p.subtitle {
+    color: #8e8e93;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 32px;
+    max-width: 880px;
+    width: 100%;
+    margin-bottom: 48px;
+  }
+  .card {
+    background: #14171e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 28px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .card:hover {
+    border-color: rgba(255, 69, 58, 0.4);
+    transform: translateY(-4px);
+  }
+  .badge {
+    background: rgba(255, 69, 58, 0.15);
+    color: #ff453a;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 20px;
+  }
+  .hero-icon {
+    width: 160px;
+    height: 160px;
+    border-radius: 36px;
+    overflow: hidden;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    margin-bottom: 24px;
+    background: #000;
+  }
+  .hero-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .card-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: #a1a1aa;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    max-width: 320px;
+  }
+  .preview-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 14px 20px;
+    border-radius: 16px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .scale-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .scale-item span {
+    font-size: 11px;
+    color: #71717a;
+    font-weight: 600;
+  }
+  .scale-img {
+    border-radius: 22%;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  }
+  .scale-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .phone-mockup-section {
+    max-width: 600px;
+    width: 100%;
+    background: #14171e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 24px;
+    text-align: center;
+  }
+  .phone-mockup-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #e4e4e7;
+  }
+  .dock-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    padding: 16px 24px;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .app-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .app-item-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  }
+  .app-item-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .app-item span {
+    font-size: 11px;
+    font-weight: 500;
+    color: #d4d4d8;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>GymFit App Icon Candidates</h1>
+  <p class="subtitle">Custom-crafted bicep flexing icons inspired directly by the reference workout artwork (sculpted anatomy, peaked bicep, heavy iron & high-contrast dynamic cel-shading).</p>
+</div>
+
+<div class="grid">
+  <!-- Option 1 -->
+  <div class="card">
+    <div class="badge">Option 1</div>
+    <div class="hero-icon">
+      <img src="/bicep-option-1.jpg" alt="Option 1 - The Bodybuilder Curl">
+    </div>
+    <div class="card-title">The Athlete Curl</div>
+    <div class="card-desc">Chiseled bodybuilder in side-profile curling a heavy dumbbell. Silver-white muscle striations on bicep and shoulder with vibrant crimson background.</div>
+    <div class="preview-row">
+      <div class="scale-item">
+        <div class="scale-img" style="width: 56px; height: 56px;">
+          <img src="/bicep-option-1.jpg" alt="56px">
+        </div>
+        <span>App (56px)</span>
+      </div>
+      <div class="scale-item">
+        <div class="scale-img" style="width: 32px; height: 32px;">
+          <img src="/bicep-option-1.jpg" alt="32px">
+        </div>
+        <span>Favicon (32px)</span>
+      </div>
+      <div class="scale-item">
+        <div class="scale-img" style="width: 20px; height: 20px;">
+          <img src="/bicep-option-1.jpg" alt="20px">
+        </div>
+        <span>Tab (20px)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option 2 -->
+  <div class="card">
+    <div class="badge" style="background: rgba(255, 100, 70, 0.15); color: #ff6446;">Option 2</div>
+    <div class="hero-icon">
+      <img src="/bicep-option-2.jpg" alt="Option 2 - Anatomical Muscle Glow">
+    </div>
+    <div class="card-title">Anatomical Muscle Fiber</div>
+    <div class="card-desc">Close-up bicep curl with glowing red muscle fibers & striations powering through the lift. Deep dark background with crimson energy aura.</div>
+    <div class="preview-row">
+      <div class="scale-item">
+        <div class="scale-img" style="width: 56px; height: 56px;">
+          <img src="/bicep-option-2.jpg" alt="56px">
+        </div>
+        <span>App (56px)</span>
+      </div>
+      <div class="scale-item">
+        <div class="scale-img" style="width: 32px; height: 32px;">
+          <img src="/bicep-option-2.jpg" alt="32px">
+        </div>
+        <span>Favicon (32px)</span>
+      </div>
+      <div class="scale-item">
+        <div class="scale-img" style="width: 20px; height: 20px;">
+          <img src="/bicep-option-2.jpg" alt="20px">
+        </div>
+        <span>Tab (20px)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="phone-mockup-section">
+  <div class="phone-mockup-title">Home Screen / Dock Preview Comparison</div>
+  <div class="dock-row">
+    <div class="app-item">
+      <div class="app-item-icon">
+        <img src="/bicep-option-1.jpg" alt="GymFit Option 1">
+      </div>
+      <span>GymFit 1</span>
+    </div>
+    <div class="app-item">
+      <div class="app-item-icon">
+        <img src="/bicep-option-2.jpg" alt="GymFit Option 2">
+      </div>
+      <span>GymFit 2</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
