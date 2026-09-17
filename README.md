@@ -12,7 +12,7 @@ Default sleek dark & red aesthetic, instant-add routine builder, offline-first, 
 
 <br>
 
-[![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0-ef4444?style=flat-square)](LICENSE)
+![License: Private](https://img.shields.io/badge/license-Private-ef4444?style=flat-square)
 ![Self-hosted](https://img.shields.io/badge/self--hosted-%F0%9F%8F%A0-60a5fa?style=flat-square)
 ![PWA](https://img.shields.io/badge/PWA-installable-a78bfa?style=flat-square)
 ![React](https://img.shields.io/badge/React-19-38bdf8?style=flat-square&logo=react&logoColor=white)
@@ -143,6 +143,8 @@ Customizable via `.env`:
 
 ## License
 
-[GNU AGPL v3.0](LICENSE) — Free and Open Source. You are free to run, fork, modify, and host GymFit for yourself and your gym partners.
+Copyright © 2026 xtremLYx. All rights reserved.
+
+This repository and its codebase are private and proprietary. Unauthorized copying, modification, distribution, or commercial use is strictly prohibited.
 
 Exercise image and animation assets are curated from public datasets and maintain their respective notices (see [NOTICE.md](NOTICE.md)).

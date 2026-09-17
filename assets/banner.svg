@@ -29,5 +29,5 @@
     <tspan fill="#ffffff">Gym</tspan><tspan fill="#ef4444">Fit</tspan>
   </text>
   <text x="226" y="120" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="20.5" font-weight="600" fill="#9ca3af">Self-hosted gym &amp; body-weight tracker</text>
-  <text x="226" y="146" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="14" font-weight="500" fill="#6b7280">passkey login  ·  pure privacy  ·  custom routines  ·  AGPL</text>
+  <text x="226" y="146" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="14" font-weight="500" fill="#6b7280">passkey login  ·  pure privacy  ·  custom routines  ·  offline-first</text>
 </svg>
