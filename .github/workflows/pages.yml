@@ -4,12 +4,11 @@ name: Deploy demo to GitHub Pages
 
 on:
   workflow_dispatch:
-  # Uncomment after enabling Pages in repo settings:
-  # push:
-  #   branches: [main]
-  #   paths:
-  #     - 'frontend/**'
-  #     - '.github/workflows/pages.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/pages.yml'
 
 permissions:
   contents: read
