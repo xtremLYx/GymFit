@@ -1,5 +1,3 @@
-# Runs on pull requests too — the other two workflows only fire on push to main, so
-# contributed changes used to reach main without anything ever having been run.
 name: Tests
 
 on:
@@ -29,9 +27,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      # node:22-alpine in web/Dockerfile and api/Dockerfile — CI must match production.
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
@@ -40,7 +37,6 @@ jobs:
         working-directory: frontend
       - run: npm test
         working-directory: frontend
-      # A broken import or bad JSX fails the build long before any test covers it.
       - run: npm run build
         working-directory: frontend
       - run: node scripts/check-locales.mjs
@@ -49,25 +45,22 @@ jobs:
   api:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # No dependencies to install: the Coach tests run on node:test and drive the in-repo
-      # fixture provider, so the whole job graph works without an AI account or a network.
+          cache: npm
+          cache-dependency-path: api/package-lock.json
+      - run: npm ci
+        working-directory: api
       - run: npm test
         working-directory: api
-      # The API's copy of the exercise catalogue is generated and committed. A dataset change
-      # that forgets to regenerate it would otherwise only surface as "the Coach can't find
-      # that exercise" on somebody's instance.
       - run: node scripts/build-coach-library.mjs --check
 
-  # Building the api image is the only place that proves the bundled Claude CLI actually
-  # installs and starts on alpine — the Dockerfile runs `claude --version` as a build step.
   api-image:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v6
         with:
