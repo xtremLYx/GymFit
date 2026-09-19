@@ -869,7 +869,7 @@ function Calendar({ start, close }) {
 }
 export const calendarSheet = start => ui().openSheet(close => <Calendar start={start} close={close} />)
 export const exerciseFilterSheet = opts => ui().openSheet(close => <ExerciseFilterSheet {...opts} close={close} />)
-export const yearReportSheet = opts => ui().openSheet(close => <YearReport S={S()} {...opts} close={close} />)
+export const yearReportSheet = opts => ui().openSheet(close => <YearReport S={S()} {...opts} close={close} onWorkoutClick={w => workoutDetailSheet(w)} />)
 
 /* shared small workout row (used in lists) */
 export function WorkoutRow({ w, onClick }) {

@@ -1,13 +1,16 @@
 import { useState, useMemo } from 'react'
-import { fmtVol, fmtDur, MONTHS_LONG, MONTHS } from '../lib/format.js'
+import { fmtVol, fmtDur, fmtDate, MONTHS_LONG, MONTHS } from '../lib/format.js'
+import { glyphOf } from '../lib/glyphs.js'
+import { setsDone } from '../lib/history.js'
 import { t } from '../lib/i18n.js'
 import Icon from './Icon.jsx'
 import { Button, Segmented } from './ui.jsx'
 import Heatmap from './Heatmap.jsx'
 
-export default function YearReport({ S, initialYear, onSelectMonth, close }) {
+export default function YearReport({ S, initialYear, initialMonth, onSelectMonth, onWorkoutClick, close }) {
   const currentYear = new Date().getFullYear()
   const [year, setYear] = useState(initialYear || currentYear)
+  const [selectedMonth, setSelectedMonth] = useState(initialMonth != null ? initialMonth : null)
   const [viewMode, setViewMode] = useState('grid') // 'grid' | 'heatmap'
 
   // Available years from workout history
@@ -80,6 +83,167 @@ export default function YearReport({ S, initialYear, onSelectMonth, close }) {
     }
     return months
   }, [year, byDay, byMonth])
+
+  // If a month is selected, render the full Month Report
+  if (selectedMonth !== null) {
+    const mo = selectedMonth
+    const monthPrefix = year + '-' + String(mo + 1).padStart(2, '0')
+    const monthWs = (S.workouts || [])
+      .filter(w => w.d.startsWith(monthPrefix))
+      .sort((a, b) => (b.d > a.d ? 1 : -1))
+
+    const totalVolMonth = monthWs.reduce((a, w) => a + (w.vol || 0), 0)
+    const totalMsMonth = monthWs.reduce((a, w) => a + Math.max(0, (w.end || w.start) - w.start), 0)
+    const totalPRsMonth = monthWs.reduce((a, w) => a + ((w.prs && w.prs.length) || 0), 0)
+    const monthName = t(MONTHS_LONG[mo])
+
+    const handleOpenInCalendar = () => {
+      if (onSelectMonth) onSelectMonth(year, mo)
+      close()
+    }
+
+    return (
+      <div className="year-report-wrap month-report-detail">
+        {/* Month Report Header */}
+        <div className="row between" style={{ marginBottom: 14, alignItems: 'center' }}>
+          <Button
+            size="sm"
+            variant="ghost"
+            icon="chevronLeft"
+            onClick={() => setSelectedMonth(null)}
+          >
+            {year} {t('Overview')}
+          </Button>
+          <h2 style={{ margin: 0, fontSize: 19, fontWeight: 700 }}>
+            {monthName} {year}
+          </h2>
+          <Button
+            size="sm"
+            variant="tinted"
+            icon="calendar"
+            onClick={handleOpenInCalendar}
+          >
+            {t('Calendar')}
+          </Button>
+        </div>
+
+        {/* Month Summary Tiles */}
+        <div className="tiles" style={{ marginBottom: 16 }}>
+          <div className="tile">
+            <div className="l">
+              <Icon name="dumbbell" />
+              {t('Workouts')}
+            </div>
+            <div className="v">{monthWs.length}</div>
+          </div>
+          <div className="tile">
+            <div className="l">
+              <Icon name="clock" />
+              {t('Time Trained')}
+            </div>
+            <div className="v">{fmtDur(totalMsMonth)}</div>
+          </div>
+          <div className="tile">
+            <div className="l">
+              <Icon name="scale" />
+              {t('Volume')}
+            </div>
+            <div className="v">{fmtVol(totalVolMonth, S.unit)}</div>
+          </div>
+          <div className="tile">
+            <div className="l">
+              <Icon name="trophy" />
+              {t('PRs')}
+            </div>
+            <div className="v">{totalPRsMonth}</div>
+          </div>
+        </div>
+
+        {/* Workouts in this Month */}
+        <div className="row between" style={{ marginBottom: 10, alignItems: 'center' }}>
+          <h4 className="sec" style={{ margin: 0 }}>
+            {t('Workouts in {0}', monthName)} ({monthWs.length})
+          </h4>
+          {monthWs.length > 0 && (
+            <span className="small dim">
+              {t('Tap a workout to view details')}
+            </span>
+          )}
+        </div>
+
+        {monthWs.length === 0 ? (
+          <div
+            className="card small muted"
+            style={{ textAlign: 'center', padding: '28px 16px', borderRadius: 'var(--r)' }}
+          >
+            <Icon name="calendar" style={{ fontSize: 26, opacity: 0.4, marginBottom: 8, display: 'block' }} />
+            <div style={{ marginBottom: 12 }}>
+              {t('No workouts logged in {0} {1}.', monthName, year)}
+            </div>
+            <Button size="sm" variant="primary" icon="calendar" onClick={handleOpenInCalendar}>
+              {t('Open {0} in Calendar', monthName)}
+            </Button>
+          </div>
+        ) : (
+          <div className="list">
+            {monthWs.map(w => {
+              const routine = (S.routines || []).find(r => r.id === w.routineId)
+              const glyph = glyphOf(routine ? routine.emoji : null)
+              const dur = Math.max(0, (w.end || w.start) - w.start)
+              return (
+                <div
+                  key={w.id}
+                  className="item"
+                  onClick={() => onWorkoutClick && onWorkoutClick(w)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <span className="lrow-i" style={{ width: 34, height: 34, borderRadius: 8, fontSize: 19 }}>
+                    <Icon name={glyph} />
+                  </span>
+                  <div className="grow">
+                    <div className="tt">{w.name}</div>
+                    <div className="ss">
+                      {[
+                        fmtDate(w.d, true),
+                        ...(dur >= 60000 ? [fmtDur(dur)] : []),
+                        t('{0} sets', setsDone(w)),
+                        fmtVol(w.vol || 0, S.unit)
+                      ].join(' · ')}
+                    </div>
+                  </div>
+                  {w.prs && w.prs.length > 0 && (
+                    <span className="pr">
+                      <Icon name="trophy" />
+                      {w.prs.length} PR
+                    </span>
+                  )}
+                  <Icon name="chevronRight" className="chev" />
+                </div>
+              )
+            })}
+          </div>
+        )}
+
+        <div className="row" style={{ gap: 10, marginTop: 20 }}>
+          <Button
+            variant="ghost"
+            onClick={() => setSelectedMonth(null)}
+            style={{ flex: 1, justifyContent: 'center' }}
+          >
+            {t('← Back to All Months')}
+          </Button>
+          <Button
+            variant="tinted"
+            icon="calendar"
+            onClick={handleOpenInCalendar}
+            style={{ flex: 1, justifyContent: 'center' }}
+          >
+            {t('Open in Calendar')}
+          </Button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="year-report-wrap">
@@ -157,11 +321,16 @@ export default function YearReport({ S, initialYear, onSelectMonth, close }) {
           {/* Monthly Comparison Bar Chart */}
           <div className="card" style={{ marginBottom: 16, padding: '12px 14px' }}>
             <div className="small dim" style={{ marginBottom: 8 }}>
-              {t('Workouts by month')}
+              {t('Workouts by month (tap a month to inspect)')}
             </div>
             <div className="year-chart-bars">
               {byMonth.map((cnt, idx) => (
-                <div key={idx} className="year-bar-col">
+                <div
+                  key={idx}
+                  className="year-bar-col"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setSelectedMonth(idx)}
+                >
                   <div className="year-bar-track">
                     <div
                       className="year-bar-fill"
@@ -183,10 +352,7 @@ export default function YearReport({ S, initialYear, onSelectMonth, close }) {
               <div
                 key={m.mo}
                 className="year-month-card"
-                onClick={() => {
-                  if (onSelectMonth) onSelectMonth(year, m.mo)
-                  close()
-                }}
+                onClick={() => setSelectedMonth(m.mo)}
               >
                 <div className="year-month-hdr">
                   <span className="ym-name">{t(m.name)}</span>
@@ -211,13 +377,19 @@ export default function YearReport({ S, initialYear, onSelectMonth, close }) {
             ))}
           </div>
           <div className="small dim" style={{ textAlign: 'center', marginTop: 14 }}>
-            {t('Tap any month to jump directly into its full calendar view')}
+            {t('Tap any month to see its full report & workouts')}
           </div>
         </>
       ) : (
         <div className="card" style={{ padding: 14 }}>
           <h4 style={{ margin: '0 0 10px 0', fontSize: 14 }}>{t('Continuous Activity Timeline')}</h4>
-          <Heatmap S={S} onDay={iso => { close(); if (onSelectMonth) onSelectMonth(parseInt(iso.slice(0, 4)), parseInt(iso.slice(5, 7)) - 1) }} />
+          <Heatmap
+            S={S}
+            onDay={iso => {
+              const mo = parseInt(iso.slice(5, 7), 10) - 1
+              setSelectedMonth(mo)
+            }}
+          />
         </div>
       )}
 
@@ -229,3 +401,4 @@ export default function YearReport({ S, initialYear, onSelectMonth, close }) {
     </div>
   )
 }
+

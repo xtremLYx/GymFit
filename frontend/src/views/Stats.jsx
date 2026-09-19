@@ -209,7 +209,7 @@ export default function Stats() {
     <div className="card">
       <MonthCalendar
         S={S}
-        onOpenYearReport={() => yearReportSheet()}
+        onOpenYearReport={opts => yearReportSheet(opts)}
       />
     </div>
 

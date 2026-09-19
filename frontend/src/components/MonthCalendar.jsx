@@ -156,7 +156,13 @@ export default function MonthCalendar({ S, onOpenYearReport, onDay }) {
             size="sm"
             variant="tinted"
             icon="chart"
-            onClick={onOpenYearReport}
+            onClick={() => onOpenYearReport({
+              initialYear: y,
+              initialMonth: mo,
+              onSelectMonth: (selYear, selMo) => {
+                setCur(new Date(selYear, selMo, 1, 12))
+              }
+            })}
             className="month-cal-year-btn"
           >
             {t('All Year Report')}
