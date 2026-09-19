@@ -194,11 +194,14 @@ export const useStore = create((set, get) => {
         set({ ready: true })
         return
       }
-      // Demo build (GitHub Pages): no backend at all — seed once, stay in guest mode.
+      // Demo / Standalone build: no backend needed — stay in guest mode with clean fresh state.
       if (DEMO) {
-        if (!localStorage.getItem(DEMO_SEEDED)) {
-          localStorage.setItem(DEMO_SEEDED, '1')
-          await get().resetDemo()
+        // Purge any previously seeded dummy demo data so users start fresh
+        if (localStorage.getItem(DEMO_SEEDED) && !localStorage.getItem('gym_demo_purged_v2')) {
+          localStorage.setItem('gym_demo_purged_v2', '1')
+          localStorage.removeItem(KEY)
+          localStorage.removeItem(DEMO_SEEDED)
+          persist(clone(DEF), false)
         }
         get().setGuest(true)
         set({ ready: true })
