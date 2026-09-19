@@ -158,7 +158,7 @@ export default function MonthCalendar({ S, onOpenYearReport, onDay }) {
             icon="chart"
             onClick={() => onOpenYearReport({
               initialYear: y,
-              initialMonth: mo,
+              initialMonth: null,
               onSelectMonth: (selYear, selMo) => {
                 setCur(new Date(selYear, selMo, 1, 12))
               }

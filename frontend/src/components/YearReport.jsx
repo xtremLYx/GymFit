@@ -99,7 +99,7 @@ export default function YearReport({ S, initialYear, initialMonth, onSelectMonth
 
     const handleOpenInCalendar = () => {
       if (onSelectMonth) onSelectMonth(year, mo)
-      close()
+      close?.()
     }
 
     return (
