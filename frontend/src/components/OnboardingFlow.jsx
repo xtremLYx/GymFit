@@ -55,21 +55,21 @@ const SPLITS = [
   {
     id: 'ppl',
     name: 'Push / Pull / Legs',
-    badge: '🔥 Recommended',
+    badge: 'Recommended',
     days: '3 to 6 days / week',
     desc: 'Focuses on movement synergy. Chest & shoulders (Push), Back & biceps (Pull), Quads & hamstrings (Legs).'
   },
   {
     id: 'classic6',
     name: 'Classic 6-Day (Chest/Back/Legs)',
-    badge: '🇮🇳 India Classic',
+    badge: 'High Frequency',
     days: '6 days / week',
     desc: 'Mon/Thu: Chest & Tri • Tue/Fri: Back & Bi • Wed/Sat: Legs & Shoulders. Iconic high-frequency mass builder.'
   },
   {
     id: 'custom',
     name: 'Custom Routine',
-    badge: '🛠️ Clean Slate',
+    badge: 'Clean Slate',
     days: 'Build from scratch',
     desc: 'Start with a clean slate. No pre-filled routines — create your own custom workouts in the app.'
   }
@@ -235,8 +235,8 @@ export default function OnboardingFlow({ onComplete }) {
               <div className="icon-pill" style={{ overflow: 'hidden', padding: 0, width: 54, height: 54, borderRadius: 14, boxShadow: '0 4px 14px rgba(0,0,0,0.5)' }}>
                 <img src="/icon-180.png" alt="GymFit" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-              <h1>Welcome to GymFit</h1>
-              <p>Apple-crafted workout tracking designed for pure focus, science-backed volume, and zero clutter.</p>
+              <h1>GymFit</h1>
+              <p>Fast, focused workout tracking. Science-backed volume, interactive muscle heatmaps, and zero clutter.</p>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 24 }}>
