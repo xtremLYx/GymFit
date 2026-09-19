@@ -126,11 +126,11 @@ export default function Home() {
           {t('Create Custom Routine')}
         </Button>
         <div style={{ height: 8 }} />
-        <Button variant="tinted" icon="sparkles" onClick={loadClassic6Plan}>
-          {t('Load Classic 6-Day Split (🇮🇳 Chest/Back/Legs)')}
+        <Button variant="tinted" icon="dumbbell" onClick={loadClassic6Plan}>
+          {t('Load Classic 6-Day Split (Chest / Back / Legs)')}
         </Button>
         <div style={{ height: 8 }} />
-        <Button variant="plain" icon="sparkles" onClick={loadStarterPlan}>
+        <Button variant="plain" icon="layers" onClick={loadStarterPlan}>
           {t('Or load starter plan (PPL)')}
         </Button>
       </div>

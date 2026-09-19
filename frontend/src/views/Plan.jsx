@@ -46,11 +46,12 @@ export default function Plan() {
     <div className="hdr">
       <div><h1>{t('Plan')}</h1><div className="sub">{t('Your weekly routine')}</div></div>
       {coachOn && <button className="iconbtn" onClick={() => nav('/coach')} aria-label={t('Coach')} title={t('Coach')}><Icon name="sparkles" /></button>}
-      <button className="iconbtn" onClick={() => setShowBuilder(true)} aria-label={t('Split Builder')} title={t('Split Builder')}><Icon name="sparkles" /></button>
       <button className="iconbtn" onClick={planToolsSheet} aria-label={t('Share your plan')} title={t('Share your plan')}><Icon name="upload" /></button>
     </div>
     <div className="cols"><div>
-      <h4 className="sec">{t('Week schedule')}</h4>
+      <div className="row between" style={{ minHeight: 35, marginBottom: 8, alignItems: 'center' }}>
+        <h4 className="sec" style={{ margin: 0, padding: 0 }}>{t('Week schedule')}</h4>
+      </div>
       <div className="list" style={{ display: 'flex', flexDirection: 'column' }}>
         {[1, 2, 3, 4, 5, 6, 0].map(d => {
           const r = S.routines.find(x => x.id === S.week[d])
@@ -61,8 +62,8 @@ export default function Plan() {
         })}
       </div>
     </div><div>
-      <div className="row between" style={{ marginTop: 22, marginBottom: 10 }}>
-        <h4 className="sec" style={{ margin: 0 }}>{t('Routines')}</h4>
+      <div className="row between" style={{ minHeight: 35, marginBottom: 8, alignItems: 'center' }}>
+        <h4 className="sec" style={{ margin: 0, padding: 0 }}>{t('Routines')}</h4>
         <div style={{ display: 'flex', gap: 6 }}>
           <Button size="sm" variant="tinted" icon="sparkles" onClick={() => setShowBuilder(true)}>{t('Split Builder')}</Button>
           <Button size="sm" variant="tinted" icon="plus" onClick={addRoutine}>{t('New')}</Button>
@@ -74,8 +75,8 @@ export default function Plan() {
         <Icon name="chevronRight" className="chev" /></div>)}</div> : <>
         <div className="empty"><div className="ico"><Icon name="clipboard" /></div>{t('No routines yet.')}<br />{t('Create one or use the Split Builder.')}</div>
         <Button variant="primary" icon="sparkles" onClick={() => setShowBuilder(true)} style={{ marginBottom: 8 }}>{t('Build Custom Split (with Muscle Heatmap)')}</Button>
-        <Button icon="sparkles" onClick={loadStarterPlan} style={{ marginBottom: 8 }}>{t('Load default starter plan (Push / Pull / Legs)')}</Button>
-        <Button icon="sparkles" onClick={loadClassic6Plan}>{t('Load Classic 6-Day Split (🇮🇳 Chest/Back/Legs)')}</Button>
+        <Button icon="layers" onClick={loadStarterPlan} style={{ marginBottom: 8 }}>{t('Load default starter plan (Push / Pull / Legs)')}</Button>
+        <Button icon="dumbbell" onClick={loadClassic6Plan}>{t('Load Classic 6-Day Split (Chest / Back / Legs)')}</Button>
       </>}
     </div></div>
 
